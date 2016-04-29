@@ -1,0 +1,38 @@
+# networking
+wbench_hostname: 'oob-mgmt-server'
+wbench_user: 'cumulus'
+wbench_passwd: '$6$wJ9OETRI$KX2hMXIuGXtXjMQwH58AsFWpQRnSHKT2OF/6GfPSxqD4e.kF.eyUQeWhnOAg5OxEuCHsOLYybweFv3HmPdBw7/'
+wbench_eth1_network: '192.168.0.0'
+wbench_eth1_ip: '192.168.0.254' #  update this according to customer
+wbench_eth1_mask: '255.255.255.0'
+
+wbench_dhcp_range_start: '192.168.0.100'
+wbench_dhcp_range_end: '192.168.0.200'
+
+dns_search1: 'lab.local'
+dns_search2: 'cwb.cumulusnetworks.com'
+dns_server: '8.8.8.8'
+
+ntp_server: '1.cumulusnetworks.pool.ntp.org'
+
+wbench_hosts: {}
+cldemo_apt_server: 'cldemo.cumulusnetworks.com'
+ubuntu_apt_server: 'archive.ubuntu.com'
+
+do_ztp: true
+ztp_data: ""
+create_key: true
+
+switches:
+  spine01:
+    mac: '48:0F:CF:AD:B4:28'
+    eth0: '192.168.0.21'
+  spine02:
+    mac: '48:0F:CF:AD:84:9E'
+    eth0: '192.168.0.22'
+  leaf01:
+    mac: '48:0F:CF:AF:57:A6'
+    eth0: '192.168.0.11'
+  leaf02:
+    mac: '48:0F:CF:AF:F6:00'
+    eth0: '192.168.0.12'

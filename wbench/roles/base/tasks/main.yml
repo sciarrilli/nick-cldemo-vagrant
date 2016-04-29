@@ -1,0 +1,50 @@
+# create cumulus user
+- name: create cumulus
+  user: name=cumulus generate_ssh_key=yes ssh_key_bits=2048 ssh_key_file=.ssh/id_rsa
+
+# add motd
+- name: configure /etc/motd
+  copy: src=motd dest=/etc/motd
+
+# add colors to bash
+- name: configure bash colors for user
+  copy: src=bashrc dest=/home/cumulus/.bashrc
+
+- name: configure bash colors for root
+  copy: src=bashrc dest=/root/.bashrc
+
+# update apt source list
+- name: install sources.list. may use apt-cacher if ubuntu_apt_server var is set
+  template: src=apt_sources.list.j2  dest=/etc/apt/sources.list
+
+# install ansible
+- name: install git
+  apt: name={{item}} state=present
+  with_items:
+    - software-properties-common
+
+- name: add ansible repo
+  apt_repository: repo={{item}}
+  with_items:
+    - ppa:ansible/ansible
+
+- name: update apt cache
+  apt: update_cache=yes
+
+- name: Install Ansible
+  apt: pkg=ansible state=present
+
+# install base packages
+- name: install git
+  apt: name={{item}} state=present
+  with_items:
+    - git
+    - curl
+    - man
+    - bash-completion
+    - python-paramiko
+
+- name: Git clone cldemo-indie
+  git: repo=https://github.com/sciarrilli/cldemo-indie.git dest=/home/cumulus/cldemo-indie
+  become: yes
+  become_user: cumulus

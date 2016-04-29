@@ -1,0 +1,7 @@
+127.0.0.1   localhost
+
+{{ wbench_eth1_ip }} {{ wbench_hostname }}.lab.local {{ wbench_hostname }}
+
+{% for device in switches.keys() %}
+{{ switches[device].eth0 }} {{device}}.lab.local {{device}}
+{% endfor %}

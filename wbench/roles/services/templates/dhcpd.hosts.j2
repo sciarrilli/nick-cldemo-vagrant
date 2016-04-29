@@ -1,0 +1,9 @@
+# Configured by Ansible
+# static DHCP hosts
+{% for device in switches.keys() %}
+host {{device}} {
+  hardware ethernet {{ switches[device].mac }};
+  fixed-address {{ switches[device].eth0 }};
+  option host-name "{{device}}";
+}
+{% endfor %}

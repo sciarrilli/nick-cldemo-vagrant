@@ -1,0 +1,12 @@
+graph G {
+    "leaf01":"swp51" -- "spine01":"swp1";
+    "leaf01":"swp52" -- "spine02":"swp1";
+    "leaf02":"swp51" -- "spine01":"swp2";
+    "leaf02":"swp52" -- "spine02":"swp2";
+
+    "server01":"eth1" -- "leaf01":"swp1";
+    "server02":"eth1" -- "leaf02":"swp1";
+    "server03":"eth1" -- "leaf01":"swp3";
+    "server04":"eth1" -- "leaf02":"swp3";
+
+}

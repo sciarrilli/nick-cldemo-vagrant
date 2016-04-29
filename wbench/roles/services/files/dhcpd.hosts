@@ -1,0 +1,24 @@
+# Here we statically assign DHCP entries according to the eth0 mac addresses of
+# our devices.
+#
+
+host leaf02 {
+  hardware ethernet a0:00:00:00:00:12;
+  fixed-address 192.168.0.12;
+  option host-name "leaf02";
+}
+host leaf01 {
+  hardware ethernet a0:00:00:00:00:11;
+  fixed-address 192.168.0.11;
+  option host-name "leaf01";
+}
+host spine02 {
+  hardware ethernet a0:00:00:00:00:22;
+  fixed-address 192.168.0.22;
+  option host-name "spine02";
+}
+host spine01 {
+  hardware ethernet a0:00:00:00:00:21;
+  fixed-address 192.168.0.21;
+  option host-name "spine01";
+}
