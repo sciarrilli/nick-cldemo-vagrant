@@ -25,14 +25,14 @@ create_key: true
 
 switches:
   spine01:
-    mac: '48:0F:CF:AD:B4:28'
+    mac: 'A0:00:00:00:00:21'
     eth0: '192.168.0.21'
   spine02:
-    mac: '48:0F:CF:AD:84:9E'
+    mac: 'A0:00:00:00:00:22'
     eth0: '192.168.0.22'
   leaf01:
-    mac: '48:0F:CF:AF:57:A6'
+    mac: 'A0:00:00:00:00:11'
     eth0: '192.168.0.11'
   leaf02:
-    mac: '48:0F:CF:AF:F6:00'
+    mac: 'A0:00:00:00:00:12'
     eth0: '192.168.0.12'

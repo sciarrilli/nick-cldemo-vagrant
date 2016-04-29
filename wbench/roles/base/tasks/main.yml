@@ -14,7 +14,7 @@
   copy: src=bashrc dest=/root/.bashrc
 
 # update apt source list
-- name: install sources.list. may use apt-cacher if ubuntu_apt_server var is set
+- name: install apt source list
   template: src=apt_sources.list.j2  dest=/etc/apt/sources.list
 
 # install ansible
@@ -31,7 +31,7 @@
 - name: update apt cache
   apt: update_cache=yes
 
-- name: Install Ansible
+- name: install ansible
   apt: pkg=ansible state=present
 
 # install base packages
@@ -44,7 +44,7 @@
     - bash-completion
     - python-paramiko
 
-- name: Git clone cldemo-indie
+- name: git clone cldemo-indie
   git: repo=https://github.com/sciarrilli/cldemo-indie.git dest=/home/cumulus/cldemo-indie
   become: yes
   become_user: cumulus
