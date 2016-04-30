@@ -48,6 +48,6 @@
     - python-paramiko
 
 - name: git clone cldemo-indie
-  git: repo=https://github.com/sciarrilli/nick-cldemo-ebgp.git dest=/home/cumulus/nick-cldemo-ebgp
+  git: repo=https://github.com/sciarrilli/nick-cldemo-ansible.git dest=/home/cumulus/nick-cldemo-ansible
   become: yes
   become_user: cumulus
