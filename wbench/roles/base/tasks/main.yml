@@ -7,21 +7,24 @@
   copy: src=motd dest=/etc/motd
 
 # add colors to bash
-- name: configure bash colors for user
+- name: add bash colors for cumulus
   copy: src=bashrc dest=/home/cumulus/.bashrc
 
-- name: configure bash colors for root
+- name: add bash colors for root
   copy: src=bashrc dest=/root/.bashrc
+
+- name: add bash colors for vagrant
+  copy: src=bashrc dest=/home/vagrant/.bashrc
 
 # update apt source list
 - name: install apt source list
   template: src=apt_sources.list.j2  dest=/etc/apt/sources.list
 
 # install ansible
-- name: install git
-  apt: name={{item}} state=present
-  with_items:
-    - software-properties-common
+#- name: install git
+#  apt: name={{item}} state=present
+#  with_items:
+#    - software-properties-common
 
 - name: add ansible repo
   apt_repository: repo={{item}}
@@ -35,7 +38,7 @@
   apt: pkg=ansible state=present
 
 # install base packages
-- name: install git
+- name: install base packages
   apt: name={{item}} state=present
   with_items:
     - git
@@ -45,6 +48,6 @@
     - python-paramiko
 
 - name: git clone cldemo-indie
-  git: repo=https://github.com/sciarrilli/cldemo-indie.git dest=/home/cumulus/cldemo-indie
+  git: repo=https://github.com/sciarrilli/nick-cldemo-ebgp.git dest=/home/cumulus/nick-cldemo-ebgp
   become: yes
   become_user: cumulus

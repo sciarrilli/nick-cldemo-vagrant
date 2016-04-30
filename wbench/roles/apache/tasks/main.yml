@@ -17,7 +17,7 @@
 
 
 
-# copy license and ztp script
+# copy license, ztp script, ssh key to /var/www
 - name: copy license
   copy: src=license.lic dest=/var/www/license.lic
 
@@ -26,3 +26,6 @@
 
 - name: create the ztp script
   template: src=ztp.sh.j2 dest=/var/www/ztp.sh
+
+- name: copy ssh public key to /var/www
+  shell: cp /home/cumulus/.ssh/id_rsa.pub /var/www/id_rsa.pub

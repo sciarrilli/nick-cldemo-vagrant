@@ -17,22 +17,37 @@ ntp_server: '1.cumulusnetworks.pool.ntp.org'
 
 wbench_hosts: {}
 cldemo_apt_server: 'cldemo.cumulusnetworks.com'
-ubuntu_apt_server: 'archive.ubuntu.com'
+ubuntu_apt_server: 'mirror.n5tech.com'
 
 do_ztp: true
 ztp_data: ""
 create_key: true
 
 switches:
+  oob-mgmt-switch:
+    mac: 'A0:00:00:00:00:00'
+    eth0: '192.168.0.1'
   spine01:
     mac: 'A0:00:00:00:00:21'
     eth0: '192.168.0.21'
   spine02:
     mac: 'A0:00:00:00:00:22'
     eth0: '192.168.0.22'
+  spine03:
+    mac: 'A0:00:00:00:00:23'
+    eth0: '192.168.0.23'
+  spine04:
+    mac: 'A0:00:00:00:00:24'
+    eth0: '192.168.0.24'
   leaf01:
     mac: 'A0:00:00:00:00:11'
     eth0: '192.168.0.11'
   leaf02:
     mac: 'A0:00:00:00:00:12'
     eth0: '192.168.0.12'
+  leaf03:
+    mac: 'A0:00:00:00:00:13'
+    eth0: '192.168.0.13'
+  leaf04:
+    mac: 'A0:00:00:00:00:14'
+    eth0: '192.168.0.14'

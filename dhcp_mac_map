@@ -1,3 +1,5 @@
+oob-mgmt-switch,eth0,A00000000000
+
 server01,eth0,A00000000031
 server02,eth0,A00000000032
 server03,eth0,A00000000033
