@@ -17,7 +17,7 @@ ntp_server: '1.cumulusnetworks.pool.ntp.org'
 
 wbench_hosts: {}
 cldemo_apt_server: 'cldemo.cumulusnetworks.com'
-ubuntu_apt_server: 'mirror.n5tech.com'
+ubuntu_apt_server: 'mirror.us.leaseweb.net'
 
 do_ztp: true
 ztp_data: ""
