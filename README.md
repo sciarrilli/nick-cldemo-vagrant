@@ -12,7 +12,7 @@ Provision the topology and log in
     git clone https://github.com/sciarrilli/nick-cldemo-vagrant
     cd nick-cldemo-vagrant
     vagrant plugin install vagrant-cumulus
-    vagrant up oob-mgmt-server oob-mgmt-switch spine01 spine02 spine03 spine04 leaf01 leaf02 leaf03 leaf04
+    vagrant up 
     vagrant ssh oob-mgmt-server
     sudo su - cumulus
     cd nick-cldemo-ansible
