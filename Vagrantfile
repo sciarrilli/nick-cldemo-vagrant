@@ -8,16 +8,16 @@ Vagrant.configure("2") do |config|
 
 
 
-  config.vm.define "oob-mgmt-server" do |device|
+  config.vm.define "workbench" do |device|
       device.vm.provider "virtualbox" do |v|
-        v.name = "oob-mgmt-server"
+        v.name = "workbench"
         v.memory = 1024
       end
-      device.vm.hostname = "oob-mgmt-server"
+      device.vm.hostname = "workbench"
       device.vm.box = "boxcutter/ubuntu1404"
 
 
-    device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_44", auto_config: false
+    device.vm.network "private_network", virtualbox__intnet: "net_workbench", auto_config: false
 
 
       device.vm.synced_folder ".", "/vagrant", disabled: true
@@ -128,15 +128,7 @@ config.vm.define "oob-mgmt-switch" do |device|
     device.vm.hostname = "oob-mgmt-switch"
     device.vm.box = "CumulusCommunity/cumulus-vx"
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_44", auto_config: false , :mac => "A00000000000"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_45", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_46", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_47", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_48", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_workbench", auto_config: false , :mac => "A00000000000"
 
         device.vm.network "private_network", virtualbox__intnet: "net_l1_eth0", auto_config: false
 
@@ -145,6 +137,14 @@ config.vm.define "oob-mgmt-switch" do |device|
         device.vm.network "private_network", virtualbox__intnet: "net_l3_eth0", auto_config: false
 
         device.vm.network "private_network", virtualbox__intnet: "net_l4_eth0", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_l5_eth0", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_l6_eth0", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_l7_eth0", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_l8_eth0", auto_config: false
 
         device.vm.network "private_network", virtualbox__intnet: "net_s1_eth0", auto_config: false
 
@@ -228,13 +228,13 @@ config.vm.define "spine01" do |device|
 
         device.vm.network "private_network", virtualbox__intnet: "net_l4s1", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_26", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l5s1", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_24", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l6s1", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_14", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l7s1", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_15", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l8s1", auto_config: false
 
 
     # Disabling the default synced folder
@@ -294,13 +294,13 @@ config.vm.define "spine02" do |device|
 
         device.vm.network "private_network", virtualbox__intnet: "net_l4s2", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_27", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l5s2", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_25", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l6s2", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_14", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l7s2", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_15", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l8s2", auto_config: false
 
 
     # Disabling the default synced folder
@@ -359,13 +359,13 @@ config.vm.define "spine03" do |device|
 
         device.vm.network "private_network", virtualbox__intnet: "net_l4s3", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_27", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l5s3", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_25", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l6s3", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_14", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l7s3", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_15", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l8s3", auto_config: false
 
 
     # Disabling the default synced folder
@@ -423,13 +423,13 @@ config.vm.define "spine04" do |device|
 
         device.vm.network "private_network", virtualbox__intnet: "net_l4s4", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_27", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l5s4", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_25", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l6s4", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_14", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l7s4", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_15", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l8s4", auto_config: false
 
 
     # Disabling the default synced folder
@@ -761,165 +761,54 @@ config.vm.define "leaf04" do |device|
     end
 
     device.vm.provision :shell , path: "./helper_scripts/post_config_switch.sh"
-end
+
+
+  end
 
 
 
 
 
-config.vm.define "internet" do |device|
+config.vm.define "leaf05" do |device|
     device.vm.provider "virtualbox" do |v|
-      v.name = "internet"
-      v.memory = 256
+      v.name = "leaf05"
+      v.memory = 512
     end
-    device.vm.hostname = "internet"
+    device.vm.hostname = "leaf05"
     device.vm.box = "CumulusCommunity/cumulus-vx"
 
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_58", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_42", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_43", auto_config: false
-
-
-    device.vm.synced_folder ".", "/vagrant", disabled: true
-    device.vm.provision :shell , path: "./helper_scripts/internet_config.sh"
-    device.vm.provision "file", source: "./helper_scripts/rename_eth_swp", destination: "/home/vagrant/rename_eth_swp"
-    device.vm.provision "file", source: "./helper_scripts/autogenerated/internet_remap_eth", destination: "/home/vagrant/remap_eth"
-    device.vm.provision :shell , inline: "mv /home/vagrant/rename_eth_swp /etc/init.d/rename_eth_swp"
-    device.vm.provision :shell , inline: "mv /home/vagrant/remap_eth /etc/default/remap_eth"
-    device.vm.provision :shell , inline: "chmod 755 /etc/init.d/rename_eth_swp"
-    device.vm.provision :shell , inline: "/etc/init.d/rename_eth_swp verbose"
-
-    device.vm.provider "virtualbox" do |vbox|
-
-        vbox.customize ['modifyvm', :id, '--nicpromisc2', 'allow-vms']
-
-        vbox.customize ['modifyvm', :id, '--nicpromisc3', 'allow-vms']
-
-        vbox.customize ['modifyvm', :id, '--nicpromisc4', 'allow-vms']
-
-    end
-end
-
-
-
-config.vm.define "server01" do |device|
-    device.vm.provider "virtualbox" do |v|
-      v.name = "server01"
-      v.memory = 512
-    end
-    device.vm.hostname = "server01"
-    device.vm.box = "boxcutter/ubuntu1404"
-
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_45", auto_config: false , :mac => "A00000000031"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_16", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_17", auto_config: false
-
-
-    device.vm.synced_folder ".", "/vagrant", disabled: true
-    device.vm.provision :shell , inline: "sudo sed -i 's/sleep [0-9]*/sleep 1/' /etc/init/failsafe.conf"
-    device.vm.provision :shell , path: "./helper_scripts/pre_config.sh"
-    device.vm.provision "file", source: "./helper_scripts/rename_eth_swp", destination: "/home/vagrant/rename_eth_swp"
-    device.vm.provision "file", source: "./helper_scripts/autogenerated/server01_remap_eth", destination: "/home/vagrant/remap_eth"
-    device.vm.provision :shell , inline: "mv /home/vagrant/rename_eth_swp /etc/init.d/rename_eth_swp"
-    device.vm.provision :shell , inline: "mv /home/vagrant/remap_eth /etc/default/remap_eth"
-    device.vm.provision :shell , inline: "chmod 755 /etc/init.d/rename_eth_swp"
-    device.vm.provision :shell , inline: "sudo sed -i '/exit 0/d' /etc/rc.local "
-    device.vm.provision :shell , inline: "sudo echo '/etc/init.d/rename_eth_swp start' >> /etc/rc.local "
-    device.vm.provision :shell , inline: "sudo echo 'exit 0' >> /etc/rc.local "
-    device.vm.provision :shell , inline: "/etc/init.d/rename_eth_swp verbose"
-
-    device.vm.provider "virtualbox" do |vbox|
-
-        vbox.customize ['modifyvm', :id, '--nicpromisc2', 'allow-vms']
-
-        vbox.customize ['modifyvm', :id, '--nicpromisc3', 'allow-vms']
-
-        vbox.customize ['modifyvm', :id, '--nicpromisc4', 'allow-vms']
-
-    end
-
-    device.vm.provision :shell , path: "./helper_scripts/post_config_server.sh"
-end
-
-
-
-config.vm.define "server02" do |device|
-    device.vm.provider "virtualbox" do |v|
-      v.name = "server02"
-      v.memory = 512
-    end
-    device.vm.hostname = "server02"
-    device.vm.box = "boxcutter/ubuntu1404"
-
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_46", auto_config: false , :mac => "A00000000032"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_18", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_19", auto_config: false
-
-
-    device.vm.synced_folder ".", "/vagrant", disabled: true
-    device.vm.provision :shell , inline: "sudo sed -i 's/sleep [0-9]*/sleep 1/' /etc/init/failsafe.conf"
-    device.vm.provision :shell , path: "./helper_scripts/pre_config.sh"
-    device.vm.provision "file", source: "./helper_scripts/rename_eth_swp", destination: "/home/vagrant/rename_eth_swp"
-    device.vm.provision "file", source: "./helper_scripts/autogenerated/server02_remap_eth", destination: "/home/vagrant/remap_eth"
-    device.vm.provision :shell , inline: "mv /home/vagrant/rename_eth_swp /etc/init.d/rename_eth_swp"
-    device.vm.provision :shell , inline: "mv /home/vagrant/remap_eth /etc/default/remap_eth"
-    device.vm.provision :shell , inline: "chmod 755 /etc/init.d/rename_eth_swp"
-    device.vm.provision :shell , inline: "sudo sed -i '/exit 0/d' /etc/rc.local "
-    device.vm.provision :shell , inline: "sudo echo '/etc/init.d/rename_eth_swp start' >> /etc/rc.local "
-    device.vm.provision :shell , inline: "sudo echo 'exit 0' >> /etc/rc.local "
-    device.vm.provision :shell , inline: "/etc/init.d/rename_eth_swp verbose"
-
-    device.vm.provider "virtualbox" do |vbox|
-
-        vbox.customize ['modifyvm', :id, '--nicpromisc2', 'allow-vms']
-
-        vbox.customize ['modifyvm', :id, '--nicpromisc3', 'allow-vms']
-
-        vbox.customize ['modifyvm', :id, '--nicpromisc4', 'allow-vms']
-
-    end
-
-    device.vm.provision :shell , path: "./helper_scripts/post_config_server.sh"
-end
-
-
-
-config.vm.define "server03" do |device|
-    device.vm.provider "virtualbox" do |v|
-      v.name = "server03"
-      v.memory = 512
-    end
-    device.vm.hostname = "server03"
-    device.vm.box = "boxcutter/ubuntu1404"
-
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_47", auto_config: false , :mac => "A00000000033"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_20", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l5_eth0", auto_config: false , :mac => "A00000000014"
 
         device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_21", auto_config: false
 
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_23", auto_config: false
 
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_31", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_31", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_37", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_37", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_l5s1", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_l5s2", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_l5s3", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_l5s4", auto_config: false
+
+
+    # Disabling the default synced folder
     device.vm.synced_folder ".", "/vagrant", disabled: true
-    device.vm.provision :shell , inline: "sudo sed -i 's/sleep [0-9]*/sleep 1/' /etc/init/failsafe.conf"
     device.vm.provision :shell , path: "./helper_scripts/pre_config.sh"
     device.vm.provision "file", source: "./helper_scripts/rename_eth_swp", destination: "/home/vagrant/rename_eth_swp"
-    device.vm.provision "file", source: "./helper_scripts/autogenerated/server03_remap_eth", destination: "/home/vagrant/remap_eth"
+    device.vm.provision "file", source: "./helper_scripts/autogenerated/leaf05_remap_eth", destination: "/home/vagrant/remap_eth"
     device.vm.provision :shell , inline: "mv /home/vagrant/rename_eth_swp /etc/init.d/rename_eth_swp"
     device.vm.provision :shell , inline: "mv /home/vagrant/remap_eth /etc/default/remap_eth"
     device.vm.provision :shell , inline: "chmod 755 /etc/init.d/rename_eth_swp"
-    device.vm.provision :shell , inline: "sudo sed -i '/exit 0/d' /etc/rc.local "
-    device.vm.provision :shell , inline: "sudo echo '/etc/init.d/rename_eth_swp start' >> /etc/rc.local "
-    device.vm.provision :shell , inline: "sudo echo 'exit 0' >> /etc/rc.local "
     device.vm.provision :shell , inline: "/etc/init.d/rename_eth_swp verbose"
 
     device.vm.provider "virtualbox" do |vbox|
@@ -930,140 +819,72 @@ config.vm.define "server03" do |device|
 
         vbox.customize ['modifyvm', :id, '--nicpromisc4', 'allow-vms']
 
+        vbox.customize ['modifyvm', :id, '--nicpromisc5', 'allow-vms']
+
+        vbox.customize ['modifyvm', :id, '--nicpromisc6', 'allow-vms']
+
+        vbox.customize ['modifyvm', :id, '--nicpromisc7', 'allow-vms']
+
+        vbox.customize ['modifyvm', :id, '--nicpromisc8', 'allow-vms']
+
+        vbox.customize ['modifyvm', :id, '--nicpromisc9', 'allow-vms']
+
+        vbox.customize ['modifyvm', :id, '--nicpromisc10', 'allow-vms']
+
+        vbox.customize ['modifyvm', :id, '--nicpromisc11', 'allow-vms']
+
+        vbox.customize ['modifyvm', :id, '--nicpromisc12', 'allow-vms']
+
     end
 
-    device.vm.provision :shell , path: "./helper_scripts/post_config_server.sh"
-end
+    device.vm.provision :shell , path: "./helper_scripts/post_config_switch.sh"
 
 
 
-config.vm.define "server04" do |device|
+
+  end
+
+
+
+
+
+  config.vm.define "leaf06" do |device|
     device.vm.provider "virtualbox" do |v|
-      v.name = "server04"
+      v.name = "leaf06"
       v.memory = 512
     end
-    device.vm.hostname = "server04"
-    device.vm.box = "boxcutter/ubuntu1404"
+    device.vm.hostname = "leaf06"
+    device.vm.box = "CumulusCommunity/cumulus-vx"
 
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_48", auto_config: false , :mac => "A00000000034"
+        device.vm.network "private_network", virtualbox__intnet: "net_l6_eth0", auto_config: false , :mac => "A00000000014"
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_22", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_21", auto_config: false
 
         device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_23", auto_config: false
 
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_31", auto_config: false
 
-    device.vm.synced_folder ".", "/vagrant", disabled: true
-    device.vm.provision :shell , inline: "sudo sed -i 's/sleep [0-9]*/sleep 1/' /etc/init/failsafe.conf"
-    device.vm.provision :shell , path: "./helper_scripts/pre_config.sh"
-    device.vm.provision "file", source: "./helper_scripts/rename_eth_swp", destination: "/home/vagrant/rename_eth_swp"
-    device.vm.provision "file", source: "./helper_scripts/autogenerated/server04_remap_eth", destination: "/home/vagrant/remap_eth"
-    device.vm.provision :shell , inline: "mv /home/vagrant/rename_eth_swp /etc/init.d/rename_eth_swp"
-    device.vm.provision :shell , inline: "mv /home/vagrant/remap_eth /etc/default/remap_eth"
-    device.vm.provision :shell , inline: "chmod 755 /etc/init.d/rename_eth_swp"
-    device.vm.provision :shell , inline: "sudo sed -i '/exit 0/d' /etc/rc.local "
-    device.vm.provision :shell , inline: "sudo echo '/etc/init.d/rename_eth_swp start' >> /etc/rc.local "
-    device.vm.provision :shell , inline: "sudo echo 'exit 0' >> /etc/rc.local "
-    device.vm.provision :shell , inline: "/etc/init.d/rename_eth_swp verbose"
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_31", auto_config: false
 
-    device.vm.provider "virtualbox" do |vbox|
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_37", auto_config: false
 
-        vbox.customize ['modifyvm', :id, '--nicpromisc2', 'allow-vms']
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_37", auto_config: false
 
-        vbox.customize ['modifyvm', :id, '--nicpromisc3', 'allow-vms']
+        device.vm.network "private_network", virtualbox__intnet: "net_l6s1", auto_config: false
 
-        vbox.customize ['modifyvm', :id, '--nicpromisc4', 'allow-vms']
+        device.vm.network "private_network", virtualbox__intnet: "net_l6s2", auto_config: false
 
-    end
+        device.vm.network "private_network", virtualbox__intnet: "net_l6s3", auto_config: false
 
-    device.vm.provision :shell , path: "./helper_scripts/post_config_server.sh"
-end
-
-
-
-config.vm.define "edge01" do |device|
-    device.vm.provider "virtualbox" do |v|
-      v.name = "edge01"
-      v.memory = 512
-    end
-    device.vm.hostname = "edge01"
-    device.vm.box = "boxcutter/ubuntu1404"
-
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_57", auto_config: false , :mac => "A00000000051"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_40", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_41", auto_config: false
-
-
-    device.vm.synced_folder ".", "/vagrant", disabled: true
-    device.vm.provision :shell , inline: "sudo sed -i 's/sleep [0-9]*/sleep 1/' /etc/init/failsafe.conf"
-    device.vm.provision :shell , path: "./helper_scripts/pre_config.sh"
-    device.vm.provision "file", source: "./helper_scripts/rename_eth_swp", destination: "/home/vagrant/rename_eth_swp"
-    device.vm.provision "file", source: "./helper_scripts/autogenerated/edge01_remap_eth", destination: "/home/vagrant/remap_eth"
-    device.vm.provision :shell , inline: "mv /home/vagrant/rename_eth_swp /etc/init.d/rename_eth_swp"
-    device.vm.provision :shell , inline: "mv /home/vagrant/remap_eth /etc/default/remap_eth"
-    device.vm.provision :shell , inline: "chmod 755 /etc/init.d/rename_eth_swp"
-    device.vm.provision :shell , inline: "sudo sed -i '/exit 0/d' /etc/rc.local "
-    device.vm.provision :shell , inline: "sudo echo '/etc/init.d/rename_eth_swp start' >> /etc/rc.local "
-    device.vm.provision :shell , inline: "sudo echo 'exit 0' >> /etc/rc.local "
-    device.vm.provision :shell , inline: "/etc/init.d/rename_eth_swp verbose"
-
-    device.vm.provider "virtualbox" do |vbox|
-
-        vbox.customize ['modifyvm', :id, '--nicpromisc2', 'allow-vms']
-
-        vbox.customize ['modifyvm', :id, '--nicpromisc3', 'allow-vms']
-
-        vbox.customize ['modifyvm', :id, '--nicpromisc4', 'allow-vms']
-
-    end
-
-    device.vm.provision :shell , path: "./helper_scripts/post_config_server.sh"
-end
-
-
-
-
-
-config.vm.define "exit01" do |device|
-    device.vm.provider "virtualbox" do |v|
-      v.name = "exit01"
-      v.memory = 512
-    end
-    device.vm.hostname = "exit01"
-    device.vm.box = "CumulusCommunity/cumulus-vx"
-
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_55", auto_config: false , :mac => "A00000000041"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_40", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_42", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_32", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_32", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_38", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_38", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_12", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_13", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_24", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_25", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l6s4", auto_config: false
 
 
     # Disabling the default synced folder
     device.vm.synced_folder ".", "/vagrant", disabled: true
     device.vm.provision :shell , path: "./helper_scripts/pre_config.sh"
     device.vm.provision "file", source: "./helper_scripts/rename_eth_swp", destination: "/home/vagrant/rename_eth_swp"
-    device.vm.provision "file", source: "./helper_scripts/autogenerated/exit01_remap_eth", destination: "/home/vagrant/remap_eth"
+    device.vm.provision "file", source: "./helper_scripts/autogenerated/leaf06_remap_eth", destination: "/home/vagrant/remap_eth"
     device.vm.provision :shell , inline: "mv /home/vagrant/rename_eth_swp /etc/init.d/rename_eth_swp"
     device.vm.provision :shell , inline: "mv /home/vagrant/remap_eth /etc/default/remap_eth"
     device.vm.provision :shell , inline: "chmod 755 /etc/init.d/rename_eth_swp"
@@ -1096,48 +917,52 @@ config.vm.define "exit01" do |device|
     end
 
     device.vm.provision :shell , path: "./helper_scripts/post_config_switch.sh"
-end
+
+
+
+  end
 
 
 
 
-config.vm.define "exit02" do |device|
+
+  config.vm.define "leaf07" do |device|
     device.vm.provider "virtualbox" do |v|
-      v.name = "exit02"
+      v.name = "leaf07"
       v.memory = 512
     end
-    device.vm.hostname = "exit02"
+    device.vm.hostname = "leaf07"
     device.vm.box = "CumulusCommunity/cumulus-vx"
 
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_56", auto_config: false , :mac => "A00000000042"
+        device.vm.network "private_network", virtualbox__intnet: "net_l7_eth0", auto_config: false , :mac => "A00000000014"
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_41", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_21", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_43", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_23", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_33", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_31", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_33", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_31", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_39", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_37", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_39", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_37", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_12", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l7s1", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_13", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l7s2", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_26", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l7s3", auto_config: false
 
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_27", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l7s4", auto_config: false
 
 
     # Disabling the default synced folder
     device.vm.synced_folder ".", "/vagrant", disabled: true
     device.vm.provision :shell , path: "./helper_scripts/pre_config.sh"
     device.vm.provision "file", source: "./helper_scripts/rename_eth_swp", destination: "/home/vagrant/rename_eth_swp"
-    device.vm.provision "file", source: "./helper_scripts/autogenerated/exit02_remap_eth", destination: "/home/vagrant/remap_eth"
+    device.vm.provision "file", source: "./helper_scripts/autogenerated/leaf07_remap_eth", destination: "/home/vagrant/remap_eth"
     device.vm.provision :shell , inline: "mv /home/vagrant/rename_eth_swp /etc/init.d/rename_eth_swp"
     device.vm.provision :shell , inline: "mv /home/vagrant/remap_eth /etc/default/remap_eth"
     device.vm.provision :shell , inline: "chmod 755 /etc/init.d/rename_eth_swp"
@@ -1170,10 +995,86 @@ config.vm.define "exit02" do |device|
     end
 
     device.vm.provision :shell , path: "./helper_scripts/post_config_switch.sh"
-end
+
+
+
+  end
 
 
 
 
 
+  config.vm.define "leaf08" do |device|
+    device.vm.provider "virtualbox" do |v|
+      v.name = "leaf08"
+      v.memory = 512
+    end
+    device.vm.hostname = "leaf08"
+    device.vm.box = "CumulusCommunity/cumulus-vx"
+
+
+        device.vm.network "private_network", virtualbox__intnet: "net_l8_eth0", auto_config: false , :mac => "A00000000014"
+
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_21", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_23", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_31", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_31", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_37", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_37", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_l8s1", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_l8s2", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_l8s3", auto_config: false
+
+        device.vm.network "private_network", virtualbox__intnet: "net_l8s4", auto_config: false
+
+
+    # Disabling the default synced folder
+    device.vm.synced_folder ".", "/vagrant", disabled: true
+    device.vm.provision :shell , path: "./helper_scripts/pre_config.sh"
+    device.vm.provision "file", source: "./helper_scripts/rename_eth_swp", destination: "/home/vagrant/rename_eth_swp"
+    device.vm.provision "file", source: "./helper_scripts/autogenerated/leaf08_remap_eth", destination: "/home/vagrant/remap_eth"
+    device.vm.provision :shell , inline: "mv /home/vagrant/rename_eth_swp /etc/init.d/rename_eth_swp"
+    device.vm.provision :shell , inline: "mv /home/vagrant/remap_eth /etc/default/remap_eth"
+    device.vm.provision :shell , inline: "chmod 755 /etc/init.d/rename_eth_swp"
+    device.vm.provision :shell , inline: "/etc/init.d/rename_eth_swp verbose"
+
+    device.vm.provider "virtualbox" do |vbox|
+
+        vbox.customize ['modifyvm', :id, '--nicpromisc2', 'allow-vms']
+
+        vbox.customize ['modifyvm', :id, '--nicpromisc3', 'allow-vms']
+
+        vbox.customize ['modifyvm', :id, '--nicpromisc4', 'allow-vms']
+
+        vbox.customize ['modifyvm', :id, '--nicpromisc5', 'allow-vms']
+
+        vbox.customize ['modifyvm', :id, '--nicpromisc6', 'allow-vms']
+
+        vbox.customize ['modifyvm', :id, '--nicpromisc7', 'allow-vms']
+
+        vbox.customize ['modifyvm', :id, '--nicpromisc8', 'allow-vms']
+
+        vbox.customize ['modifyvm', :id, '--nicpromisc9', 'allow-vms']
+
+        vbox.customize ['modifyvm', :id, '--nicpromisc10', 'allow-vms']
+
+        vbox.customize ['modifyvm', :id, '--nicpromisc11', 'allow-vms']
+
+        vbox.customize ['modifyvm', :id, '--nicpromisc12', 'allow-vms']
+
+    end
+
+    device.vm.provision :shell , path: "./helper_scripts/post_config_switch.sh"
+
+
+
+    end
 end
