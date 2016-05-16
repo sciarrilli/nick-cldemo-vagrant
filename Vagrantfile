@@ -50,31 +50,6 @@ Vagrant.configure("2") do |config|
 
 
 
-
-
-
-
-
-                server01: {ip: "192.168.0.31", mac: "A0:00:00:00:00:31"},
-
-
-
-                server02: {ip: "192.168.0.32", mac: "A0:00:00:00:00:32"},
-
-
-
-                server03: {ip: "192.168.0.33", mac: "A0:00:00:00:00:33"},
-
-
-
-                server04: {ip: "192.168.0.34", mac: "A0:00:00:00:00:34"},
-
-
-
-                edge01: {ip: "192.168.0.51", mac: "A0:00:00:00:00:51"},
-
-
-
                 spine01: {ip: "192.168.0.21", mac: "A0:00:00:00:00:21"},
 
 
@@ -107,12 +82,19 @@ Vagrant.configure("2") do |config|
 
 
 
-                exit01: {ip: "192.168.0.41", mac: "A0:00:00:00:00:41"},
+                leaf05: {ip: "192.168.0.15", mac: "A0:00:00:00:00:15"},
 
 
 
-                exit02: {ip: "192.168.0.42", mac: "A0:00:00:00:00:42"},
+                leaf06: {ip: "192.168.0.16", mac: "A0:00:00:00:00:16"},
 
+
+
+                leaf07: {ip: "192.168.0.17", mac: "A0:00:00:00:00:17"},
+
+
+
+                leaf08: {ip: "192.168.0.18", mac: "A0:00:00:00:00:18"},
 
                             }}
       end
@@ -778,7 +760,7 @@ config.vm.define "leaf05" do |device|
     device.vm.box = "CumulusCommunity/cumulus-vx"
 
 
-        device.vm.network "private_network", virtualbox__intnet: "net_l5_eth0", auto_config: false , :mac => "A00000000014"
+        device.vm.network "private_network", virtualbox__intnet: "net_l5_eth0", auto_config: false , :mac => "A00000000015"
 
         device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_21", auto_config: false
 
@@ -857,7 +839,7 @@ config.vm.define "leaf05" do |device|
     device.vm.box = "CumulusCommunity/cumulus-vx"
 
 
-        device.vm.network "private_network", virtualbox__intnet: "net_l6_eth0", auto_config: false , :mac => "A00000000014"
+        device.vm.network "private_network", virtualbox__intnet: "net_l6_eth0", auto_config: false , :mac => "A00000000016"
 
         device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_21", auto_config: false
 
@@ -935,7 +917,7 @@ config.vm.define "leaf05" do |device|
     device.vm.box = "CumulusCommunity/cumulus-vx"
 
 
-        device.vm.network "private_network", virtualbox__intnet: "net_l7_eth0", auto_config: false , :mac => "A00000000014"
+        device.vm.network "private_network", virtualbox__intnet: "net_l7_eth0", auto_config: false , :mac => "A00000000017"
 
         device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_21", auto_config: false
 
@@ -1013,7 +995,7 @@ config.vm.define "leaf05" do |device|
     device.vm.box = "CumulusCommunity/cumulus-vx"
 
 
-        device.vm.network "private_network", virtualbox__intnet: "net_l8_eth0", auto_config: false , :mac => "A00000000014"
+        device.vm.network "private_network", virtualbox__intnet: "net_l8_eth0", auto_config: false , :mac => "A00000000018"
 
         device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_21", auto_config: false
 
