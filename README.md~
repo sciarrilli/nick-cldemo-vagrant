@@ -13,7 +13,7 @@ Provision the topology and log in
     cd nick-cldemo-vagrant
     vagrant plugin install vagrant-cumulus
     vagrant up 
-    vagrant ssh workbench
+    vagrant ssh oob-mgmt-server
     sudo su - cumulus
     cd nick-cldemo-ansible
     ansible-playbook playbook-ebgp.yml #for ebgp unnumbered
