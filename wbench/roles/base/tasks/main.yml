@@ -26,16 +26,16 @@
 #  with_items:
 #    - software-properties-common
 
-- name: add ansible repo
-  apt_repository: repo={{item}}
-  with_items:
-    - ppa:ansible/ansible
+#- name: add ansible repo
+#  apt_repository: repo={{item}}
+#  with_items:
+#    - ppa:ansible/ansible
 
 - name: update apt cache
   apt: update_cache=yes
 
-- name: install ansible
-  apt: pkg=ansible state=present
+#- name: install ansible
+#  apt: pkg=ansible state=present
 
 # install base packages
 - name: install base packages
@@ -46,8 +46,36 @@
     - man
     - bash-completion
     - python-paramiko
+    - python-pip
 
-- name: git clone cldemo-indie
+- name: download ansible 2.0.2.0
+  unarchive: src=http://releases.ansible.com/ansible/ansible-2.0.2.0-0.4.rc4.tar.gz dest=/home/vagrant/ copy=no
+
+- name: ansible setup.py build
+  shell: /usr/bin/python /home/vagrant/ansible-2.0.2.0/setup.py build
+  become: true
+  become_method: sudo
+  args:
+    chdir: /home/vagrant/ansible-2.0.2.0
+
+- name: ansible setup.py install
+  shell: /usr/bin/python /home/vagrant/ansible-2.0.2.0/setup.py install
+  become: true
+  become_method: sudo
+  args:
+    chdir: /home/vagrant/ansible-2.0.2.0
+
+- name: create ansible symlinks
+  file: src=/usr/local/bin/{{ item }} dest=/usr/bin/{{ item }} state=link
+  with_items:
+    - ansible
+    - ansible-playbook
+    - ansible-doc
+
+- name: remove ansible directory
+  file: path=/home/vagrant/ansible-2.0.2.0 state=absent
+
+- name: git clone cldemo-ansible
   git: repo=https://github.com/sciarrilli/nick-cldemo-ansible.git dest=/home/cumulus/nick-cldemo-ansible
   become: yes
   become_user: cumulus

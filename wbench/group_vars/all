@@ -1,5 +1,5 @@
 # networking
-wbench_hostname: 'oob-mgmt-server'
+wbench_hostname: 'workbench'
 wbench_user: 'cumulus'
 wbench_passwd: '$6$wJ9OETRI$KX2hMXIuGXtXjMQwH58AsFWpQRnSHKT2OF/6GfPSxqD4e.kF.eyUQeWhnOAg5OxEuCHsOLYybweFv3HmPdBw7/'
 wbench_eth1_network: '192.168.0.0'
