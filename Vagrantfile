@@ -371,7 +371,8 @@ config.vm.define "oob-mgmt-switch" do |device|
       v.memory = 256
     end
     device.vm.hostname = "oob-mgmt-switch"
-    device.vm.box = "cumulux-vx-3.0.0"
+    device.vm.box = "CumulusCommunity/cumulus-vx"
+    device.vm.box_version = "3.0.0"
 
         device.vm.network "private_network", virtualbox__intnet: "net_workbench", auto_config: false , :mac => "A00000000000"
         device.vm.network "private_network", virtualbox__intnet: "net_l2_eth0", auto_config: false , :mac => "443839001112"
@@ -536,7 +537,8 @@ config.vm.define "spine02" do |device|
     end
     device.vm.hostname = "spine02"
     device.vm.hostname = "oob-mgmt-switch"
-    device.vm.box = "cumulux-vx-3.0.0"
+    device.vm.box = "CumulusCommunity/cumulus-vx"
+    device.vm.box_version = "3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_s2_eth0", auto_config: false , :mac => "A00000000022"
@@ -609,7 +611,8 @@ config.vm.define "spine03" do |device|
     end
     device.vm.hostname = "spine03"
     device.vm.hostname = "oob-mgmt-switch"
-    device.vm.box = "cumulux-vx-3.0.0"
+    device.vm.box = "CumulusCommunity/cumulus-vx"
+    device.vm.box_version = "3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_s3_eth0", auto_config: false , :mac => "A00000000023"
@@ -681,7 +684,8 @@ config.vm.define "spine04" do |device|
     end
     device.vm.hostname = "spine04"
     device.vm.hostname = "oob-mgmt-switch"
-    device.vm.box = "cumulux-vx-3.0.0"
+    device.vm.box = "CumulusCommunity/cumulus-vx"
+    device.vm.box_version = "3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_s4_eth0", auto_config: false , :mac => "A00000000024"
@@ -755,7 +759,8 @@ config.vm.define "leaf01" do |device|
     end
     device.vm.hostname = "leaf01"
     device.vm.hostname = "oob-mgmt-switch"
-    device.vm.box = "cumulux-vx-3.0.0"
+    device.vm.box = "CumulusCommunity/cumulus-vx"
+    device.vm.box_version = "3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_l1_eth0", auto_config: false , :mac => "A00000000011"
@@ -831,7 +836,8 @@ config.vm.define "leaf02" do |device|
     end
     device.vm.hostname = "leaf02"
     device.vm.hostname = "oob-mgmt-switch"
-    device.vm.box = "cumulux-vx-3.0.0"
+    device.vm.box = "CumulusCommunity/cumulus-vx"
+    device.vm.box_version = "3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_l2_eth0", auto_config: false , :mac => "A00000000012"
@@ -907,7 +913,8 @@ config.vm.define "leaf03" do |device|
     end
     device.vm.hostname = "leaf03"
     device.vm.hostname = "oob-mgmt-switch"
-    device.vm.box = "cumulux-vx-3.0.0"
+    device.vm.box = "CumulusCommunity/cumulus-vx"
+    device.vm.box_version = "3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_l3_eth0", auto_config: false , :mac => "A00000000013"
@@ -983,7 +990,8 @@ config.vm.define "leaf04" do |device|
     end
     device.vm.hostname = "leaf04"
     device.vm.hostname = "oob-mgmt-switch"
-    device.vm.box = "cumulux-vx-3.0.0"
+    device.vm.box = "CumulusCommunity/cumulus-vx"
+    device.vm.box_version = "3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_l4_eth0", auto_config: false , :mac => "A00000000014"
@@ -1060,7 +1068,8 @@ config.vm.define "leaf05" do |device|
     end
     device.vm.hostname = "leaf05"
     device.vm.hostname = "oob-mgmt-switch"
-    device.vm.box = "cumulux-vx-3.0.0"
+    device.vm.box = "CumulusCommunity/cumulus-vx"
+    device.vm.box_version = "3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_l5_eth0", auto_config: false , :mac => "A00000000015"
@@ -1137,7 +1146,8 @@ config.vm.define "leaf05" do |device|
     end
     device.vm.hostname = "leaf06"
     device.vm.hostname = "oob-mgmt-switch"
-    device.vm.box = "cumulux-vx-3.0.0"
+    device.vm.box = "CumulusCommunity/cumulus-vx"
+    device.vm.box_version = "3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_l6_eth0", auto_config: false , :mac => "A00000000016"
@@ -1214,7 +1224,8 @@ config.vm.define "leaf05" do |device|
     end
     device.vm.hostname = "leaf07"
     device.vm.hostname = "oob-mgmt-switch"
-    device.vm.box = "cumulux-vx-3.0.0"
+    device.vm.box = "CumulusCommunity/cumulus-vx"
+    device.vm.box_version = "3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_l7_eth0", auto_config: false , :mac => "A00000000017"
@@ -1291,7 +1302,8 @@ config.vm.define "leaf05" do |device|
     end
     device.vm.hostname = "leaf08"
     device.vm.hostname = "oob-mgmt-switch"
-    device.vm.box = "cumulux-vx-3.0.0"
+    device.vm.box = "CumulusCommunity/cumulus-vx"
+    device.vm.box_version = "3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_l8_eth0", auto_config: false , :mac => "A00000000018"
