@@ -9,17 +9,23 @@ Before running this demo, install
 
 Provision the topology and log in
 ---------------------------------
+    # spin up the vagrant environment
     git clone https://github.com/sciarrilli/nick-cldemo-vagrant
     cd nick-cldemo-vagrant
     vagrant plugin install vagrant-cumulus
-    vagrant up 
+    vagrant up
     vagrant ssh workbench
-    sudo su - cumulus
     cd nick-cldemo-ansible
-    ansible-playbook playbook-ebgp.yml #for ebgp unnumbered
+
+    # ebgp playbook
+    ansible all -m ping
+    ansible all -a "ip route"
+    ansible-playbook playbook-ebgp.yml
+    ansible all -a "ip route"
+    ansible leaf01 -a "cat /etc/network/interfaces"
+    ansible-playbook playbook-cleanup.yml
     ansible all -a "ip route"
 
-    ansible-playbook playbook-cleanup.yml #erase all quagga and /etc/network/interfaces
-
-    ansible-playbook playbook-ospf.yml #for ospf unnumbered
+    # ospf playbook
+    ansible-playbook playbook-ospf.yml
     ansible all -a "ip route"

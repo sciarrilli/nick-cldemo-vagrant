@@ -24,6 +24,10 @@ echo -e "address 192.168.0.1/24" >> /etc/network/interfaces
 
 #echo -e "bridge-stp on" >> /etc/network/interfaces
 
+echo -e "   resetting zero touch"
+ztp -R
+echo -e "   ztp success!!!"
+
 ## Convenience code. This is normally done in ZTP.
 echo "cumulus ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/10_cumulus
 mkdir -p /home/cumulus/.ssh

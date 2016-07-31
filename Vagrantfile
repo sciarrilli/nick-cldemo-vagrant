@@ -367,41 +367,27 @@ Vagrant.configure("2") do |config|
 config.vm.define "oob-mgmt-switch" do |device|
     device.vm.provider "virtualbox" do |v|
       v.name = "oob-mgmt-switch"
+      v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
       v.memory = 256
     end
     device.vm.hostname = "oob-mgmt-switch"
-    device.vm.box = "cumulus-vx-3.0.0"
+    device.vm.box = "cumulux-vx-3.0.0"
 
         device.vm.network "private_network", virtualbox__intnet: "net_workbench", auto_config: false , :mac => "A00000000000"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l1_eth0", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l2_eth0", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l3_eth0", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l4_eth0", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l5_eth0", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l6_eth0", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l7_eth0", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l8_eth0", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_s1_eth0", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_s2_eth0", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_s3_eth0", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_s4_eth0", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_57", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_58", auto_config: false
-
+        device.vm.network "private_network", virtualbox__intnet: "net_l2_eth0", auto_config: false , :mac => "443839001112"
+        device.vm.network "private_network", virtualbox__intnet: "net_l3_eth0", auto_config: false , :mac => "443839001113"
+        device.vm.network "private_network", virtualbox__intnet: "net_l4_eth0", auto_config: false , :mac => "443839001114"
+        device.vm.network "private_network", virtualbox__intnet: "net_l5_eth0", auto_config: false , :mac => "443839001115"
+        device.vm.network "private_network", virtualbox__intnet: "net_l6_eth0", auto_config: false , :mac => "443839001116"
+        device.vm.network "private_network", virtualbox__intnet: "net_l7_eth0", auto_config: false , :mac => "443839001117"
+        device.vm.network "private_network", virtualbox__intnet: "net_l8_eth0", auto_config: false , :mac => "443839001118"
+        device.vm.network "private_network", virtualbox__intnet: "net_s1_eth0", auto_config: false , :mac => "443839001119"
+        device.vm.network "private_network", virtualbox__intnet: "net_s2_eth0", auto_config: false , :mac => "443839001120"
+        device.vm.network "private_network", virtualbox__intnet: "net_s3_eth0", auto_config: false , :mac => "443839001121"
+        device.vm.network "private_network", virtualbox__intnet: "net_s4_eth0", auto_config: false , :mac => "443839001122"
+        device.vm.network "private_network", virtualbox__intnet: "net_unused1", auto_config: false , :mac => "443839001123"
+        device.vm.network "private_network", virtualbox__intnet: "net_unused2", auto_config: false , :mac => "443839001124"
+        device.vm.network "private_network", virtualbox__intnet: "net_l1_eth0", auto_config: false , :mac => "443839001125"
 
     # Disabling the default synced folder
     device.vm.synced_folder ".", "/vagrant", disabled: true
@@ -438,13 +424,27 @@ config.vm.define "oob-mgmt-switch" do |device|
         device.vm.provision :shell , inline: "(grep -q -E '^mesg n$' /root/.profile && sed -i 's/^mesg n$/tty -s \\&\\& mesg n/g' /root/.profile && echo 'Ignore the previous error \"stdin: is not a tty\" -- fixing this now...') || exit 0;"
 
         # Run Any Extra Config
-        device.vm.provision :shell , path: "./helper_scripts/config_switch.sh"
+        device.vm.provision :shell , path: "./helper_scripts/config_oob_switch.sh"
 
         # Apply the interface re-map
         device.vm.provision "file", source: "./helper_scripts/apply_udev.py", destination: "/home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "chmod 755 /home/vagrant/apply_udev.py"
-        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a A0:00:00:00:00:21 eth0"
-        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -vm "
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a A00000000000 swp1"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839001112 swp2"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839001113 swp3"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839001114 swp4"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839001115 swp5"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839001116 swp6"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839001117 swp7"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839001118 swp8"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839001119 swp9"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839001120 swp10"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839001121 swp11"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839001122 swp12"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839001123 swp13"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839001124 swp14"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839001125 swp15"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -vm -nv"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -s"
         device.vm.provision :shell , :inline => $script
 
@@ -458,29 +458,22 @@ end
 config.vm.define "spine01" do |device|
     device.vm.provider "virtualbox" do |v|
       v.name = "spine01"
+      v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
       v.memory = 512
     end
     device.vm.hostname = "spine01"
-    device.vm.box = "cumulus-vx-3.0.0"
-
+    device.vm.box = "CumulusCommunity/cumulus-vx"
+    device.vm.box_version = "3.0.0"
 
         device.vm.network "private_network", virtualbox__intnet: "net_s1_eth0", auto_config: false , :mac => "A00000000021"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l1s1", auto_config: false , :mac => "44383900005C"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l2s1", auto_config: false , :mac => "44383900002F"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l3s1", auto_config: false , :mac => "443839000058"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l4s1", auto_config: false , :mac => "443839000044"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l5s1", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l6s1", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l7s1", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l8s1", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l1s1", auto_config: false , :mac => "443839000011"
+        device.vm.network "private_network", virtualbox__intnet: "net_l2s1", auto_config: false , :mac => "443839000012"
+        device.vm.network "private_network", virtualbox__intnet: "net_l3s1", auto_config: false , :mac => "443839000013"
+        device.vm.network "private_network", virtualbox__intnet: "net_l4s1", auto_config: false , :mac => "443839000014"
+        device.vm.network "private_network", virtualbox__intnet: "net_l5s1", auto_config: false , :mac => "443839000015"
+        device.vm.network "private_network", virtualbox__intnet: "net_l6s1", auto_config: false , :mac => "443839000016"
+        device.vm.network "private_network", virtualbox__intnet: "net_l7s1", auto_config: false , :mac => "443839000017"
+        device.vm.network "private_network", virtualbox__intnet: "net_l8s1", auto_config: false , :mac => "443839000018"
 
 
     # Disabling the default synced folder
@@ -518,11 +511,15 @@ config.vm.define "spine01" do |device|
         device.vm.provision "file", source: "./helper_scripts/apply_udev.py", destination: "/home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "chmod 755 /home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a A0:00:00:00:00:21 eth0"
-        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 44383900005C swp1"
-        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 44383900002F swp2"
-        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000058 swp3"
-        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000044 swp4"
-        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -vm "
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000011 swp1"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000012 swp2"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000013 swp3"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000014 swp4"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000015 swp5"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000016 swp6"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000017 swp7"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000018 swp8"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -vm"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -s"
         device.vm.provision :shell , :inline => $script
 
@@ -534,29 +531,23 @@ end
 config.vm.define "spine02" do |device|
     device.vm.provider "virtualbox" do |v|
       v.name = "spine02"
+      v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
       v.memory = 512
     end
     device.vm.hostname = "spine02"
-    device.vm.box = "cumulus-vx-3.0.0"
+    device.vm.hostname = "oob-mgmt-switch"
+    device.vm.box = "cumulux-vx-3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_s2_eth0", auto_config: false , :mac => "A00000000022"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l1s2", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l2s2", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l3s2", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l4s2", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l5s2", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l6s2", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l7s2", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l8s2", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l1s2", auto_config: false , :mac => "443839000021"
+        device.vm.network "private_network", virtualbox__intnet: "net_l2s2", auto_config: false , :mac => "443839000022"
+        device.vm.network "private_network", virtualbox__intnet: "net_l3s2", auto_config: false , :mac => "443839000023"
+        device.vm.network "private_network", virtualbox__intnet: "net_l4s2", auto_config: false , :mac => "443839000024"
+        device.vm.network "private_network", virtualbox__intnet: "net_l5s2", auto_config: false , :mac => "443839000025"
+        device.vm.network "private_network", virtualbox__intnet: "net_l6s2", auto_config: false , :mac => "443839000026"
+        device.vm.network "private_network", virtualbox__intnet: "net_l7s2", auto_config: false , :mac => "443839000027"
+        device.vm.network "private_network", virtualbox__intnet: "net_l8s2", auto_config: false , :mac => "443839000028"
 
 
     # Disabling the default synced folder
@@ -594,6 +585,14 @@ config.vm.define "spine02" do |device|
         device.vm.provision "file", source: "./helper_scripts/apply_udev.py", destination: "/home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "chmod 755 /home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a A0:00:00:00:00:22 eth0"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000021 swp1"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000022 swp2"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000023 swp3"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000024 swp4"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000025 swp5"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000026 swp6"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000027 swp7"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000028 swp8"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -vm "
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -s"
         device.vm.provision :shell , :inline => $script
@@ -605,29 +604,23 @@ end
 config.vm.define "spine03" do |device|
     device.vm.provider "virtualbox" do |v|
       v.name = "spine03"
+      v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
       v.memory = 512
     end
     device.vm.hostname = "spine03"
-    device.vm.box = "cumulus-vx-3.0.0"
+    device.vm.hostname = "oob-mgmt-switch"
+    device.vm.box = "cumulux-vx-3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_s3_eth0", auto_config: false , :mac => "A00000000023"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l1s3", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l2s3", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l3s3", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l4s3", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l5s3", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l6s3", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l7s3", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l8s3", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l1s3", auto_config: false , :mac => "443839000031"
+        device.vm.network "private_network", virtualbox__intnet: "net_l2s3", auto_config: false , :mac => "443839000032"
+        device.vm.network "private_network", virtualbox__intnet: "net_l3s3", auto_config: false , :mac => "443839000033"
+        device.vm.network "private_network", virtualbox__intnet: "net_l4s3", auto_config: false , :mac => "443839000034"
+        device.vm.network "private_network", virtualbox__intnet: "net_l5s3", auto_config: false , :mac => "443839000035"
+        device.vm.network "private_network", virtualbox__intnet: "net_l6s3", auto_config: false , :mac => "443839000036"
+        device.vm.network "private_network", virtualbox__intnet: "net_l7s3", auto_config: false , :mac => "443839000037"
+        device.vm.network "private_network", virtualbox__intnet: "net_l8s3", auto_config: false , :mac => "443839000038"
 
 
     # Disabling the default synced folder
@@ -665,6 +658,14 @@ config.vm.define "spine03" do |device|
         device.vm.provision "file", source: "./helper_scripts/apply_udev.py", destination: "/home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "chmod 755 /home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a A0:00:00:00:00:23 eth0"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000031 swp1"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000032 swp2"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000033 swp3"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000034 swp4"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000035 swp5"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000036 swp6"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000037 swp7"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000038 swp8"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -vm "
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -s"
         device.vm.provision :shell , :inline => $script
@@ -675,29 +676,23 @@ end
 config.vm.define "spine04" do |device|
     device.vm.provider "virtualbox" do |v|
       v.name = "spine04"
+      v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
       v.memory = 512
     end
     device.vm.hostname = "spine04"
-    device.vm.box = "cumulus-vx-3.0.0"
+    device.vm.hostname = "oob-mgmt-switch"
+    device.vm.box = "cumulux-vx-3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_s4_eth0", auto_config: false , :mac => "A00000000024"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l1s4", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l2s4", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l3s4", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l4s4", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l5s4", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l6s4", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l7s4", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l8s4", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l1s4", auto_config: false , :mac => "443839000041"
+        device.vm.network "private_network", virtualbox__intnet: "net_l2s4", auto_config: false , :mac => "443839000042"
+        device.vm.network "private_network", virtualbox__intnet: "net_l3s4", auto_config: false , :mac => "443839000043"
+        device.vm.network "private_network", virtualbox__intnet: "net_l4s4", auto_config: false , :mac => "443839000044"
+        device.vm.network "private_network", virtualbox__intnet: "net_l5s4", auto_config: false , :mac => "443839000045"
+        device.vm.network "private_network", virtualbox__intnet: "net_l6s4", auto_config: false , :mac => "443839000046"
+        device.vm.network "private_network", virtualbox__intnet: "net_l7s4", auto_config: false , :mac => "443839000047"
+        device.vm.network "private_network", virtualbox__intnet: "net_l8s4", auto_config: false , :mac => "443839000048"
 
 
     # Disabling the default synced folder
@@ -735,6 +730,14 @@ config.vm.define "spine04" do |device|
         device.vm.provision "file", source: "./helper_scripts/apply_udev.py", destination: "/home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "chmod 755 /home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a A0:00:00:00:00:24 eth0"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000041 swp1"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000042 swp2"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000043 swp3"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000044 swp4"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000045 swp5"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000046 swp6"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000047 swp7"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000048 swp8"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -vm "
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -s"
         device.vm.provision :shell , :inline => $script
@@ -747,33 +750,23 @@ end
 config.vm.define "leaf01" do |device|
     device.vm.provider "virtualbox" do |v|
       v.name = "leaf01"
+      v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
       v.memory = 512
     end
     device.vm.hostname = "leaf01"
-    device.vm.box = "cumulus-vx-3.0.0"
+    device.vm.hostname = "oob-mgmt-switch"
+    device.vm.box = "cumulux-vx-3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_l1_eth0", auto_config: false , :mac => "A00000000011"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_16", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_18", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_28", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_28", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_34", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_34", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l1s1", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l1s2", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l1s3", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l1s4", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l1server1", auto_config: false , :mac => "443839000101"
+        device.vm.network "private_network", virtualbox__intnet: "net_l1server2", auto_config: false , :mac => "443839000102"
+        device.vm.network "private_network", virtualbox__intnet: "net_l1server3", auto_config: false , :mac => "443839000103"
+        device.vm.network "private_network", virtualbox__intnet: "net_l1server4", auto_config: false , :mac => "443839000104"
+        device.vm.network "private_network", virtualbox__intnet: "net_l1s1", auto_config: false , :mac => "443839000149"
+        device.vm.network "private_network", virtualbox__intnet: "net_l1s2", auto_config: false , :mac => "443839000150"
+        device.vm.network "private_network", virtualbox__intnet: "net_l1s3", auto_config: false , :mac => "443839000151"
+        device.vm.network "private_network", virtualbox__intnet: "net_l1s4", auto_config: false , :mac => "443839000152"
 
 
     # Disabling the default synced folder
@@ -813,6 +806,14 @@ config.vm.define "leaf01" do |device|
         device.vm.provision "file", source: "./helper_scripts/apply_udev.py", destination: "/home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "chmod 755 /home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a A0:00:00:00:00:11 eth0"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000101 swp1"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000102 swp2"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000103 swp3"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000104 swp4"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000149 swp49"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000150 swp50"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000151 swp51"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000152 swp52"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -vm "
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -s"
         device.vm.provision :shell , :inline => $script
@@ -825,33 +826,23 @@ end
 config.vm.define "leaf02" do |device|
     device.vm.provider "virtualbox" do |v|
       v.name = "leaf02"
+      v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
       v.memory = 512
     end
     device.vm.hostname = "leaf02"
-    device.vm.box = "cumulus-vx-3.0.0"
+    device.vm.hostname = "oob-mgmt-switch"
+    device.vm.box = "cumulux-vx-3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_l2_eth0", auto_config: false , :mac => "A00000000012"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_17", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_19", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_29", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_29", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_35", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_35", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l2s1", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l2s2", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l2s3", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l2s4", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l2server1", auto_config: false , :mac => "443839000201"
+        device.vm.network "private_network", virtualbox__intnet: "net_l2server2", auto_config: false , :mac => "443839000202"
+        device.vm.network "private_network", virtualbox__intnet: "net_l2server3", auto_config: false , :mac => "443839000203"
+        device.vm.network "private_network", virtualbox__intnet: "net_l2server4", auto_config: false , :mac => "443839000204"
+        device.vm.network "private_network", virtualbox__intnet: "net_l2s1", auto_config: false , :mac => "443839000249"
+        device.vm.network "private_network", virtualbox__intnet: "net_l2s2", auto_config: false , :mac => "443839000250"
+        device.vm.network "private_network", virtualbox__intnet: "net_l2s3", auto_config: false , :mac => "443839000251"
+        device.vm.network "private_network", virtualbox__intnet: "net_l2s4", auto_config: false , :mac => "443839000252"
 
 
     # Disabling the default synced folder
@@ -891,6 +882,14 @@ config.vm.define "leaf02" do |device|
         device.vm.provision "file", source: "./helper_scripts/apply_udev.py", destination: "/home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "chmod 755 /home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a A0:00:00:00:00:12 eth0"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000201 swp1"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000202 swp2"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000203 swp3"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000204 swp4"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000249 swp49"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000250 swp50"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000251 swp51"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000252 swp52"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -vm "
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -s"
         device.vm.provision :shell , :inline => $script
@@ -903,33 +902,23 @@ end
 config.vm.define "leaf03" do |device|
     device.vm.provider "virtualbox" do |v|
       v.name = "leaf03"
+      v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
       v.memory = 512
     end
     device.vm.hostname = "leaf03"
-    device.vm.box = "cumulus-vx-3.0.0"
+    device.vm.hostname = "oob-mgmt-switch"
+    device.vm.box = "cumulux-vx-3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_l3_eth0", auto_config: false , :mac => "A00000000013"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_20", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_22", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_30", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_30", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_36", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_36", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l3s1", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l3s2", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l3s3", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l3s4", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l3server1", auto_config: false , :mac => "443839000301"
+        device.vm.network "private_network", virtualbox__intnet: "net_l3server2", auto_config: false , :mac => "443839000302"
+        device.vm.network "private_network", virtualbox__intnet: "net_l3server3", auto_config: false , :mac => "443839000303"
+        device.vm.network "private_network", virtualbox__intnet: "net_l3server4", auto_config: false , :mac => "443839000304"
+        device.vm.network "private_network", virtualbox__intnet: "net_l3s1", auto_config: false , :mac => "443839000349"
+        device.vm.network "private_network", virtualbox__intnet: "net_l3s2", auto_config: false , :mac => "443839000350"
+        device.vm.network "private_network", virtualbox__intnet: "net_l3s3", auto_config: false , :mac => "443839000351"
+        device.vm.network "private_network", virtualbox__intnet: "net_l3s4", auto_config: false , :mac => "443839000352"
 
 
     # Disabling the default synced folder
@@ -969,6 +958,14 @@ config.vm.define "leaf03" do |device|
         device.vm.provision "file", source: "./helper_scripts/apply_udev.py", destination: "/home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "chmod 755 /home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a A0:00:00:00:00:13 eth0"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000301 swp1"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000302 swp2"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000303 swp3"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000304 swp4"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000349 swp49"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000350 swp50"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000351 swp51"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000352 swp52"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -vm "
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -s"
         device.vm.provision :shell , :inline => $script
@@ -981,33 +978,23 @@ end
 config.vm.define "leaf04" do |device|
     device.vm.provider "virtualbox" do |v|
       v.name = "leaf04"
+      v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
       v.memory = 512
     end
     device.vm.hostname = "leaf04"
-    device.vm.box = "cumulus-vx-3.0.0"
+    device.vm.hostname = "oob-mgmt-switch"
+    device.vm.box = "cumulux-vx-3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_l4_eth0", auto_config: false , :mac => "A00000000014"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_21", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_23", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_31", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_31", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_37", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_37", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l4s1", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l4s2", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l4s3", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l4s4", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l4server1", auto_config: false , :mac => "443839000401"
+        device.vm.network "private_network", virtualbox__intnet: "net_l4server2", auto_config: false , :mac => "443839000402"
+        device.vm.network "private_network", virtualbox__intnet: "net_l4server3", auto_config: false , :mac => "443839000403"
+        device.vm.network "private_network", virtualbox__intnet: "net_l4server4", auto_config: false , :mac => "443839000404"
+        device.vm.network "private_network", virtualbox__intnet: "net_l4s1", auto_config: false , :mac => "443839000449"
+        device.vm.network "private_network", virtualbox__intnet: "net_l4s2", auto_config: false , :mac => "443839000450"
+        device.vm.network "private_network", virtualbox__intnet: "net_l4s3", auto_config: false , :mac => "443839000451"
+        device.vm.network "private_network", virtualbox__intnet: "net_l4s4", auto_config: false , :mac => "443839000452"
 
 
     # Disabling the default synced folder
@@ -1047,6 +1034,14 @@ config.vm.define "leaf04" do |device|
         device.vm.provision "file", source: "./helper_scripts/apply_udev.py", destination: "/home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "chmod 755 /home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a A0:00:00:00:00:14 eth0"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000401 swp1"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000402 swp2"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000403 swp3"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000404 swp4"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000449 swp49"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000450 swp50"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000451 swp51"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000452 swp52"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -vm "
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -s"
         device.vm.provision :shell , :inline => $script
@@ -1060,33 +1055,23 @@ config.vm.define "leaf04" do |device|
 config.vm.define "leaf05" do |device|
     device.vm.provider "virtualbox" do |v|
       v.name = "leaf05"
+      v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
       v.memory = 512
     end
     device.vm.hostname = "leaf05"
-    device.vm.box = "cumulus-vx-3.0.0"
+    device.vm.hostname = "oob-mgmt-switch"
+    device.vm.box = "cumulux-vx-3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_l5_eth0", auto_config: false , :mac => "A00000000015"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_21", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_23", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_31", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_31", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_37", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_37", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l5s1", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l5s2", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l5s3", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l5s4", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l5server1", auto_config: false , :mac => "443839000501"
+        device.vm.network "private_network", virtualbox__intnet: "net_l5server2", auto_config: false , :mac => "443839000502"
+        device.vm.network "private_network", virtualbox__intnet: "net_l5server3", auto_config: false , :mac => "443839000503"
+        device.vm.network "private_network", virtualbox__intnet: "net_l5server4", auto_config: false , :mac => "443839000504"
+        device.vm.network "private_network", virtualbox__intnet: "net_l5s1", auto_config: false , :mac => "443839000549"
+        device.vm.network "private_network", virtualbox__intnet: "net_l5s2", auto_config: false , :mac => "443839000550"
+        device.vm.network "private_network", virtualbox__intnet: "net_l5s3", auto_config: false , :mac => "443839000551"
+        device.vm.network "private_network", virtualbox__intnet: "net_l5s4", auto_config: false , :mac => "443839000552"
 
 
     # Disabling the default synced folder
@@ -1126,6 +1111,14 @@ config.vm.define "leaf05" do |device|
         device.vm.provision "file", source: "./helper_scripts/apply_udev.py", destination: "/home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "chmod 755 /home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a A0:00:00:00:00:15 eth0"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000501 swp1"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000502 swp2"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000503 swp3"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000504 swp4"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000549 swp49"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000550 swp50"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000551 swp51"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000552 swp52"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -vm "
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -s"
         device.vm.provision :shell , :inline => $script
@@ -1139,33 +1132,23 @@ config.vm.define "leaf05" do |device|
   config.vm.define "leaf06" do |device|
     device.vm.provider "virtualbox" do |v|
       v.name = "leaf06"
+      v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
       v.memory = 512
     end
     device.vm.hostname = "leaf06"
-    device.vm.box = "cumulus-vx-3.0.0"
+    device.vm.hostname = "oob-mgmt-switch"
+    device.vm.box = "cumulux-vx-3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_l6_eth0", auto_config: false , :mac => "A00000000016"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_21", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_23", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_31", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_31", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_37", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_37", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l6s1", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l6s2", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l6s3", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l6s4", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l6server1", auto_config: false , :mac => "443839000601"
+        device.vm.network "private_network", virtualbox__intnet: "net_l6server2", auto_config: false , :mac => "443839000602"
+        device.vm.network "private_network", virtualbox__intnet: "net_l6server3", auto_config: false , :mac => "443839000603"
+        device.vm.network "private_network", virtualbox__intnet: "net_l6server4", auto_config: false , :mac => "443839000604"
+        device.vm.network "private_network", virtualbox__intnet: "net_l6s1", auto_config: false , :mac => "443839000649"
+        device.vm.network "private_network", virtualbox__intnet: "net_l6s2", auto_config: false , :mac => "443839000650"
+        device.vm.network "private_network", virtualbox__intnet: "net_l6s3", auto_config: false , :mac => "443839000651"
+        device.vm.network "private_network", virtualbox__intnet: "net_l6s4", auto_config: false , :mac => "443839000652"
 
 
     # Disabling the default synced folder
@@ -1205,6 +1188,14 @@ config.vm.define "leaf05" do |device|
         device.vm.provision "file", source: "./helper_scripts/apply_udev.py", destination: "/home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "chmod 755 /home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a A0:00:00:00:00:16 eth0"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000601 swp1"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000602 swp2"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000603 swp3"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000604 swp4"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000649 swp49"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000650 swp50"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000651 swp51"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000652 swp52"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -vm "
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -s"
         device.vm.provision :shell , :inline => $script
@@ -1218,33 +1209,23 @@ config.vm.define "leaf05" do |device|
   config.vm.define "leaf07" do |device|
     device.vm.provider "virtualbox" do |v|
       v.name = "leaf07"
+      v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
       v.memory = 512
     end
     device.vm.hostname = "leaf07"
-    device.vm.box = "cumulus-vx-3.0.0"
+    device.vm.hostname = "oob-mgmt-switch"
+    device.vm.box = "cumulux-vx-3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_l7_eth0", auto_config: false , :mac => "A00000000017"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_21", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_23", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_31", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_31", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_37", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_37", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l7s1", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l7s2", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l7s3", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l7s4", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l7server1", auto_config: false , :mac => "443839000701"
+        device.vm.network "private_network", virtualbox__intnet: "net_l7server2", auto_config: false , :mac => "443839000702"
+        device.vm.network "private_network", virtualbox__intnet: "net_l7server3", auto_config: false , :mac => "443839000703"
+        device.vm.network "private_network", virtualbox__intnet: "net_l7server4", auto_config: false , :mac => "443839000704"
+        device.vm.network "private_network", virtualbox__intnet: "net_l7s1", auto_config: false , :mac => "443839000749"
+        device.vm.network "private_network", virtualbox__intnet: "net_l7s2", auto_config: false , :mac => "443839000750"
+        device.vm.network "private_network", virtualbox__intnet: "net_l7s3", auto_config: false , :mac => "443839000751"
+        device.vm.network "private_network", virtualbox__intnet: "net_l7s4", auto_config: false , :mac => "443839000752"
 
 
     # Disabling the default synced folder
@@ -1284,6 +1265,14 @@ config.vm.define "leaf05" do |device|
         device.vm.provision "file", source: "./helper_scripts/apply_udev.py", destination: "/home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "chmod 755 /home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a A0:00:00:00:00:17 eth0"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000701 swp1"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000702 swp2"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000703 swp3"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000704 swp4"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000749 swp49"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000750 swp50"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000751 swp51"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000752 swp52"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -vm "
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -s"
         device.vm.provision :shell , :inline => $script
@@ -1297,33 +1286,23 @@ config.vm.define "leaf05" do |device|
   config.vm.define "leaf08" do |device|
     device.vm.provider "virtualbox" do |v|
       v.name = "leaf08"
+      v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
       v.memory = 512
     end
     device.vm.hostname = "leaf08"
-    device.vm.box = "cumulus-vx-3.0.0"
+    device.vm.hostname = "oob-mgmt-switch"
+    device.vm.box = "cumulux-vx-3.0.0"
 
 
         device.vm.network "private_network", virtualbox__intnet: "net_l8_eth0", auto_config: false , :mac => "A00000000018"
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_21", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_23", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_31", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_31", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_37", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_#{wbid}_37", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l8s1", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l8s2", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l8s3", auto_config: false
-
-        device.vm.network "private_network", virtualbox__intnet: "net_l8s4", auto_config: false
+        device.vm.network "private_network", virtualbox__intnet: "net_l8server1", auto_config: false , :mac => "443839000801"
+        device.vm.network "private_network", virtualbox__intnet: "net_l8server2", auto_config: false , :mac => "443839000802"
+        device.vm.network "private_network", virtualbox__intnet: "net_l8server3", auto_config: false , :mac => "443839000803"
+        device.vm.network "private_network", virtualbox__intnet: "net_l8server4", auto_config: false , :mac => "443839000804"
+        device.vm.network "private_network", virtualbox__intnet: "net_l8s1", auto_config: false , :mac => "443839000849"
+        device.vm.network "private_network", virtualbox__intnet: "net_l8s2", auto_config: false , :mac => "443839000850"
+        device.vm.network "private_network", virtualbox__intnet: "net_l8s3", auto_config: false , :mac => "443839000851"
+        device.vm.network "private_network", virtualbox__intnet: "net_l8s4", auto_config: false , :mac => "443839000852"
 
 
     # Disabling the default synced folder
@@ -1363,6 +1342,14 @@ config.vm.define "leaf05" do |device|
         device.vm.provision "file", source: "./helper_scripts/apply_udev.py", destination: "/home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "chmod 755 /home/vagrant/apply_udev.py"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a A0:00:00:00:00:18 eth0"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000801 swp1"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000802 swp2"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000803 swp3"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000804 swp4"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000849 swp49"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000850 swp50"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000851 swp51"
+        device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -a 443839000852 swp52"
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -vm "
         device.vm.provision :shell , inline: "/home/vagrant/apply_udev.py -s"
         device.vm.provision :shell , :inline => $script

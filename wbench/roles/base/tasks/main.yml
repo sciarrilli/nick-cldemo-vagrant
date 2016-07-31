@@ -14,7 +14,7 @@
   copy: src=bashrc dest=/root/.bashrc
 
 - name: add bash colors for vagrant
-  copy: src=bashrc dest=/home/vagrant/.bashrc
+  copy: src=bashrc_vagrant dest=/home/vagrant/.bashrc
 
 # update apt source list
 - name: install apt source list

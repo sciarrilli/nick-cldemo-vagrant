@@ -19,8 +19,8 @@ sudo service switchd restart
 for i in `ls /sys/class/net -1 | grep swp`; do  ip link set up $i; done;
 
 # Grab the ptm file and restart ptm
-wget http://{{ wbench_eth1_ip }}/topology.dot -O /etc/ptm.d/topology.dot
-service ptmd restart
+# wget http://{{ wbench_eth1_ip }}/topology.dot -O /etc/ptm.d/topology.dot
+# service ptmd restart
 
 # CUMULUS-AUTOPROVISIONING
 exit 0
