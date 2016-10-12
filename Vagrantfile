@@ -277,6 +277,7 @@ Vagrant.configure("2") do |config|
       end
       device.vm.hostname = "workbench"
       device.vm.box = "boxcutter/ubuntu1404"
+      device.vm.box_version = "2.0.16"
 
 
     device.vm.network "private_network", virtualbox__intnet: "net_workbench", auto_config: false
